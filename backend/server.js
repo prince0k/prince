@@ -15,7 +15,7 @@ const server = http.createServer(app);
 // Set up Socket.IO
 const io = new Server(server, {
   cors: {
-    origin: process.env.FRONTEND_URL || "http://localhost:3000",
+    origin: process.env.FRONTEND_URL || "https://prince-princes-projects-508ddebb.vercel.app",
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true
   }
@@ -35,7 +35,7 @@ app.set('io', io);
 
 // CORS configuration
 const corsOptions = {
-  origin: process.env.FRONTEND_URL || "http://localhost:3000",
+  origin: process.env.FRONTEND_URL || "https://prince-princes-projects-508ddebb.vercel.app",
   credentials: true
 };
 

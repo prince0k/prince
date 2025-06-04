@@ -15,6 +15,8 @@ import {
 } from 'lucide-react';
 import AdminLayout from '../components/AdminLayout';
 
+const API_URL = 'https://portfolio-backend-aa7l.onrender.com';
+
 // Mock data for testing
 const mockMessages = [
   {
@@ -206,7 +208,7 @@ const AdminMessages = () => {
 
   const fetchMessages = async () => {
     try {
-      const response = await fetch('http://localhost:5000/api/messages');
+      const response = await fetch(`${API_URL}/api/messages`);
       if (!response.ok) throw new Error('Failed to fetch messages');
       const data = await response.json();
       setMessages(data.data || data); // Handle both response formats
@@ -221,7 +223,7 @@ const AdminMessages = () => {
 
   const handleReply = async (messageId, replyText) => {
     try {
-      const response = await fetch(`http://localhost:5000/api/messages/${messageId}/reply`, {
+      const response = await fetch(`${API_URL}/api/messages/${messageId}/reply`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -242,7 +244,7 @@ const AdminMessages = () => {
     if (!window.confirm('Are you sure you want to delete this message?')) return;
     
     try {
-      const response = await fetch(`http://localhost:5000/api/messages/${messageId}`, {
+      const response = await fetch(`${API_URL}/api/messages/${messageId}`, {
         method: 'DELETE',
       });
       
@@ -257,7 +259,7 @@ const AdminMessages = () => {
 
   const handleToggleStar = async (messageId) => {
     try {
-      const response = await fetch(`http://localhost:5000/api/messages/${messageId}/star`, {
+      const response = await fetch(`${API_URL}/api/messages/${messageId}/star`, {
         method: 'POST',
       });
       

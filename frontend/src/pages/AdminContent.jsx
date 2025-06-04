@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Save } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 
-const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
+const API_URL = process.env.REACT_APP_API_URL || 'https://portfolio-backend-aa7l.onrender.com';
 
 const AdminContent = () => {
   const navigate = useNavigate();

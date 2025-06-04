@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Calendar, MessageSquare, ChevronRight } from 'lucide-react';
 
+const API_URL = 'https://portfolio-backend-aa7l.onrender.com';
+
 const Blog = () => {
   const [posts, setPosts] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -13,7 +15,7 @@ const Blog = () => {
 
   const fetchPosts = async () => {
     try {
-      const response = await fetch('http://localhost:5000/api/posts?category=blog');
+      const response = await fetch(`${API_URL}/api/posts?category=blog`);
       if (!response.ok) throw new Error('Failed to fetch posts');
       const data = await response.json();
       setPosts(data);

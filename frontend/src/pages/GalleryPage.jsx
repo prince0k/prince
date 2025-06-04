@@ -18,6 +18,8 @@ import {
 } from 'lucide-react';
 import Gallery from '../components/Gallery';
 
+const API_URL = 'https://portfolio-backend-aa7l.onrender.com';
+
 const GalleryPage = ({ darkMode, setDarkMode, activeSection, setActiveSection, navigateTo, sections = ["about", "projects", "gallery", "contact"] }) => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [posts, setPosts] = useState([]);
@@ -47,7 +49,7 @@ const GalleryPage = ({ darkMode, setDarkMode, activeSection, setActiveSection, n
   // Fetch feed posts
   const fetchPosts = async () => {
     try {
-      const response = await fetch('http://localhost:5000/api/posts?category=feed');
+      const response = await fetch(`${API_URL}/api/posts?category=feed`);
       if (!response.ok) throw new Error('Failed to fetch feed posts');
       const data = await response.json();
       setPosts(data);
@@ -72,7 +74,7 @@ const GalleryPage = ({ darkMode, setDarkMode, activeSection, setActiveSection, n
     }
 
     try {
-      const response = await fetch(`http://localhost:5000/api/posts/${postId}/like`, {
+      const response = await fetch(`${API_URL}/api/posts/${postId}/like`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -99,7 +101,7 @@ const GalleryPage = ({ darkMode, setDarkMode, activeSection, setActiveSection, n
     }
 
     try {
-      const response = await fetch(`http://localhost:5000/api/posts/${selectedPost._id}/comments`, {
+      const response = await fetch(`${API_URL}/api/posts/${selectedPost._id}/comments`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

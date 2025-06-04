@@ -3,6 +3,8 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Calendar, ArrowLeft, MessageSquare, Tag } from 'lucide-react';
 
+const API_URL = 'https://portfolio-backend-aa7l.onrender.com';
+
 const BlogPost = () => {
   const { id } = useParams();
   const navigate = useNavigate();
@@ -16,7 +18,7 @@ const BlogPost = () => {
 
   const fetchPost = async () => {
     try {
-      const response = await fetch(`http://localhost:5000/api/posts/${id}`);
+      const response = await fetch(`${API_URL}/api/posts/${id}`);
       if (!response.ok) throw new Error('Failed to fetch post');
       const data = await response.json();
       setPost(data);

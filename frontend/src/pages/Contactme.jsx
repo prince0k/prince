@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { Github, Linkedin, Mail, Sun, Moon } from "lucide-react";
 
+const API_URL = 'https://portfolio-backend-aa7l.onrender.com';
+
 const Contactme = ({ darkMode, setDarkMode }) => {
   const [formData, setFormData] = useState({
     name: '',
@@ -24,7 +26,7 @@ const Contactme = ({ darkMode, setDarkMode }) => {
     setSubmitStatus(null);
 
     try {
-      const response = await fetch('http://localhost:5000/api/messages', {
+      const response = await fetch(`${API_URL}/api/messages`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

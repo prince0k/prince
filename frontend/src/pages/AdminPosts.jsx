@@ -16,6 +16,8 @@ import {
 } from 'lucide-react';
 import AdminLayout from '../components/AdminLayout';
 
+const API_URL = 'https://portfolio-backend-aa7l.onrender.com';
+
 const BlogPostForm = ({ post, onSubmit, onCancel }) => {
   const [formData, setFormData] = useState(
     post || {
@@ -155,8 +157,8 @@ const AdminPosts = () => {
   const fetchPosts = async () => {
     try {
       const [blogResponse, feedResponse] = await Promise.all([
-        fetch('http://localhost:5000/api/posts?category=blog'),
-        fetch('http://localhost:5000/api/posts?category=feed')
+        fetch(`${API_URL}/api/posts?category=blog`),
+        fetch(`${API_URL}/api/posts?category=feed`)
       ]);
 
       if (!blogResponse.ok || !feedResponse.ok) {
@@ -180,7 +182,7 @@ const AdminPosts = () => {
 
   const handleCreatePost = async (postData) => {
     try {
-      const response = await fetch('http://localhost:5000/api/posts', {
+      const response = await fetch(`${API_URL}/api/posts`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(postData),
@@ -202,7 +204,7 @@ const AdminPosts = () => {
 
   const handleUpdatePost = async (postData) => {
     try {
-      const response = await fetch(`http://localhost:5000/api/posts/${editingPost._id}`, {
+      const response = await fetch(`${API_URL}/api/posts/${editingPost._id}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(postData),
@@ -226,7 +228,7 @@ const AdminPosts = () => {
     if (!window.confirm('Are you sure you want to delete this post?')) return;
     
     try {
-      const response = await fetch(`http://localhost:5000/api/posts/${postId}`, {
+      const response = await fetch(`${API_URL}/api/posts/${postId}`, {
         method: 'DELETE',
       });
       
@@ -256,7 +258,7 @@ const AdminPosts = () => {
       const formData = new FormData();
       formData.append('image', file);
 
-      const uploadResponse = await fetch('http://localhost:5000/api/upload', {
+      const uploadResponse = await fetch(`${API_URL}/api/upload`, {
         method: 'POST',
         body: formData,
       });
@@ -275,12 +277,12 @@ const AdminPosts = () => {
       const feedPost = {
         title: file.name.split('.')[0], // Use filename as title
         description: 'New image uploaded to feed',
-        imageUrl: `http://localhost:5000${uploadData.imageUrl}`,
+        imageUrl: `${API_URL}${uploadData.imageUrl}`,
         category: 'feed',
         tags: ['feed', 'image']
       };
 
-      const postResponse = await fetch('http://localhost:5000/api/posts', {
+      const postResponse = await fetch(`${API_URL}/api/posts`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(feedPost),

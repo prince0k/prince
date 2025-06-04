@@ -1,5 +1,5 @@
 const config = {
-  apiUrl: process.env.REACT_APP_API_URL || 'http://localhost:5000/api'
+  apiUrl: process.env.REACT_APP_API_URL || 'https://portfolio-backend-aa7l.onrender.com/api'
 };
 
 export default config; 
