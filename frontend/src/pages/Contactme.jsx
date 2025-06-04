@@ -26,6 +26,7 @@ const Contactme = ({ darkMode, setDarkMode }) => {
     setSubmitStatus(null);
 
     try {
+      console.log('Sending message to:', `${API_URL}/api/messages`);
       const response = await fetch(`${API_URL}/api/messages`, {
         method: 'POST',
         headers: {
@@ -34,7 +35,12 @@ const Contactme = ({ darkMode, setDarkMode }) => {
         body: JSON.stringify(formData),
       });
 
-      if (!response.ok) throw new Error('Submission failed');
+      const data = await response.json();
+      console.log('Response:', data);
+
+      if (!response.ok) {
+        throw new Error(data.message || 'Failed to send message');
+      }
 
       setSubmitStatus({
         success: true,
@@ -46,9 +52,10 @@ const Contactme = ({ darkMode, setDarkMode }) => {
         message: ''
       });
     } catch (error) {
+      console.error('Error sending message:', error);
       setSubmitStatus({
         success: false,
-        message: 'Failed to send message. Please try again.'
+        message: `Failed to send message: ${error.message}`
       });
     } finally {
       setIsSubmitting(false);

@@ -12,13 +12,32 @@ const app = express();
 // Create HTTP server
 const server = http.createServer(app);
 
+// CORS configuration
+const allowedOrigins = [
+  'https://prince-princes-projects-508ddebb.vercel.app',
+  'https://prince-beta-one.vercel.app',
+  'https://prince-git-main-princes-projects-508ddebb.vercel.app',
+  process.env.FRONTEND_URL
+].filter(Boolean); // Remove any undefined/null values
+
+const corsOptions = {
+  origin: function (origin, callback) {
+    // Allow requests with no origin (like mobile apps or curl requests)
+    if (!origin) return callback(null, true);
+    
+    if (allowedOrigins.indexOf(origin) !== -1) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  credentials: true,
+  optionsSuccessStatus: 200
+};
+
 // Set up Socket.IO
 const io = new Server(server, {
-  cors: {
-    origin: process.env.FRONTEND_URL || "https://prince-princes-projects-508ddebb.vercel.app",
-    methods: ["GET", "POST", "PUT", "DELETE"],
-    credentials: true
-  }
+  cors: corsOptions
 });
 
 // Socket.IO connection handling
@@ -32,12 +51,6 @@ io.on('connection', (socket) => {
 
 // Export io to be used in routes
 app.set('io', io);
-
-// CORS configuration
-const corsOptions = {
-  origin: process.env.FRONTEND_URL || "https://prince-princes-projects-508ddebb.vercel.app",
-  credentials: true
-};
 
 // Middleware
 app.use(cors(corsOptions));
