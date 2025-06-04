@@ -121,14 +121,17 @@ app.use((err, req, res, next) => {
 // Start server and connect to database
 const startServer = async () => {
   const PORT = process.env.PORT || 5000;
+  const BASE_URL = process.env.NODE_ENV === 'production' 
+    ? 'https://portfolio-backend-aa7l.onrender.com'
+    : `http://localhost:${PORT}`;
   
   try {
     // Start server first
     server.listen(PORT, '0.0.0.0', () => {
       console.log(`Server running in ${process.env.NODE_ENV || 'development'} mode on port ${PORT}`);
-      console.log(`Health check: http://localhost:${PORT}/health`);
-      console.log(`API Status: http://localhost:${PORT}/api/status`);
-      console.log('CORS enabled for origins:', corsOptions.origin);
+      console.log(`Health check: ${BASE_URL}/health`);
+      console.log(`API Status: ${BASE_URL}/api/status`);
+      console.log('CORS enabled for origins:', allowedOrigins);
       console.log('WebSocket server is running');
     });
 

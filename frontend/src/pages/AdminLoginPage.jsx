@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Lock, Mail, Eye, EyeOff, AlertCircle, Loader2 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
-import config from '../config';
+
+const API_URL = process.env.REACT_APP_API_URL || 'https://portfolio-backend-aa7l.onrender.com';
 
 const AdminLoginPage = () => {
   const navigate = useNavigate();
@@ -42,26 +43,31 @@ const AdminLoginPage = () => {
         throw new Error('Password must be at least 6 characters long');
       }
 
+      console.log('Making login request to:', `${API_URL}/api/admin/login`);
+      
       // Make API call to login
-      const response = await fetch(`${config.apiUrl}/admin/login`, {
+      const response = await fetch(`${API_URL}/api/admin/login`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(formData),
+        credentials: 'include'
       });
 
-      const data = await response.json();
-
       if (!response.ok) {
-        throw new Error(data.message || 'Failed to login');
+        const data = await response.json().catch(() => ({}));
+        throw new Error(data.message || 'Failed to login. Please check your credentials.');
       }
+
+      const data = await response.json();
 
       // Save token and redirect
       localStorage.setItem('adminToken', data.token);
       navigate('/admin/dashboard');
       
     } catch (err) {
+      console.error('Login error:', err);
       setError(err.message);
     } finally {
       setIsLoading(false);
