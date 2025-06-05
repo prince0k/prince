@@ -42,7 +42,7 @@ npm install
 
 Create a `.env` file in the root directory for frontend:
 ```
-REACT_APP_API_URL=http://localhost:5000/api
+REACT_APP_API_URL=https://portfolio-backend-aa7l.onrender.com/api
 ```
 
 Create a `.env` file in the backend directory:
@@ -50,6 +50,7 @@ Create a `.env` file in the backend directory:
 MONGODB_URI=your_mongodb_connection_string
 JWT_SECRET=your_jwt_secret_key
 PORT=5000
+FRONTEND_URL=https://prince-beta-one.vercel.app
 ```
 
 ## Running the Application
@@ -66,7 +67,7 @@ cd ..
 npm start
 ```
 
-3. Open [http://localhost:3000](http://localhost:3000) to view the application
+3. Open your deployed application at [https://prince-beta-one.vercel.app](https://prince-beta-one.vercel.app)
 
 ## Admin Setup
 
@@ -76,7 +77,7 @@ cd backend
 node setup-admin.js
 ```
 
-2. Login at [http://localhost:3000/admin/login](http://localhost:3000/admin/login)
+2. Login at [https://prince-beta-one.vercel.app/admin/login](https://prince-beta-one.vercel.app/admin/login)
 
 ## Project Structure
 

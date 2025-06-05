@@ -16,17 +16,17 @@ async function verifyCredentials() {
 
     if (!match) {
       console.error('Error: Invalid MongoDB connection string format');
-      console.log('Expected format: mongodb+srv://<username>:<password>@<cluster>/database');
+      console.log('Expected format: mongodb+srv://<username>:<password>@<cluster>');
       process.exit(1);
     }
 
-    const [, username, password, cluster, database] = match;
+    const [, username, password, cluster] = match;
 
     console.log('Connection String Analysis:');
     console.log('- Username:', username);
     console.log('- Password:', '*'.repeat(password.length));
     console.log('- Cluster:', cluster);
-    console.log('- Database:', database);
+    //console.log('- Database:', database);
     console.log('\nAttempting connection...');
 
     const conn = await mongoose.connect(mongoURI, {
@@ -36,7 +36,7 @@ async function verifyCredentials() {
 
     console.log('\nConnection successful!');
     console.log('Connected to MongoDB cluster:', conn.connection.host);
-    console.log('Database:', conn.connection.db.databaseName);
+    // console.log('Database:', conn.connection.db.databaseName);
 
     await mongoose.connection.close();
     console.log('Connection closed');

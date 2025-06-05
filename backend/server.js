@@ -120,7 +120,7 @@ app.use((err, req, res, next) => {
 
 // Start server and connect to database
 const startServer = async () => {
-  const PORT = process.env.PORT || 5000;
+  const PORT = process.env.PORT || 10000;
   const BASE_URL = process.env.NODE_ENV === 'production' 
     ? 'https://portfolio-backend-aa7l.onrender.com'
     : `http://localhost:${PORT}`;
@@ -166,7 +166,7 @@ process.on('uncaughtException', (error) => {
 });
 
 // MongoDB connection
-mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/portfolio', {
+mongoose.connect(process.env.MONGODB_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true
 })
